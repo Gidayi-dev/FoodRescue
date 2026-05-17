@@ -42,10 +42,41 @@
 //     "skipLibCheck": true,
 //   }
 // }
+// {
+//   "compilerOptions": {
+//     "target": "ES2022",
+
+//     "module": "NodeNext",
+//     "moduleResolution": "nodenext",
+
+//     "rootDir": "./src",
+//     "outDir": "./dist",
+
+//     "strict": true,
+
+//     "esModuleInterop": true,
+
+//     "skipLibCheck": true,
+
+//     "forceConsistentCasingInFileNames": true,
+
+//     "types": ["node"],
+//     "allowImportingTsExtensions": true,
+//     "noEmit": true,
+
+//     "sourceMap": true
+//   },
+
+//   "include": ["src"],
+
+//   "exclude": ["node_modules", "dist"]
+// }
+
 {
   "compilerOptions": {
     "target": "ES2022",
 
+    // Essential settings for modern Node.js ES Modules
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
 
@@ -53,19 +84,16 @@
     "outDir": "./dist",
 
     "strict": true,
-
     "esModuleInterop": true,
-
     "skipLibCheck": true,
-
     "forceConsistentCasingInFileNames": true,
-
     "types": ["node"],
+    "sourceMap": true,
 
-    "sourceMap": true
+    // FIXED: Changed this to true so TypeScript allows you to import '.ts' files in your paths
+    "rewriteRelativeImportExtensions": true
   },
 
-  "include": ["src"],
-
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

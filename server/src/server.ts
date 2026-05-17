@@ -1,29 +1,30 @@
+import "./config/env.ts";
 import e from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import { config, configDotenv } from "dotenv";
 
-configDotenv()
+import userRoutes from "./routes/userRoutes.ts";
+import { healthCheck, rootHandler } from "./controllers/healthControllers.ts";
+import { notFound, errorHandler } from "./middleware/errorHandler.ts";
+
 const app = e();
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 4000;
 
+// Core middleware
 app.use(helmet());
 app.use(cors());
 app.use(morgan("dev"));
 app.use(e.json());
 
-app.get("/api/health", (req, res) => {
-  res.json({
-    success: true,
-    message: "API is healthy",
-    uptime: process.uptime(),
-  });
-});
+// Routes
+app.get("/", rootHandler);
+app.get("/api/health", healthCheck);
+app.use("/api/users", userRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Busia Food Rescue API running");
-});
+// Error handling (must be last)
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
