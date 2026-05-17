@@ -5,6 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import userRoutes from "./routes/userRoutes.ts";
+import authRoutes from "./routes/authRoutes.ts"
 import { healthCheck, rootHandler } from "./controllers/healthControllers.ts";
 import { notFound, errorHandler } from "./middleware/errorHandler.ts";
 
@@ -21,6 +22,7 @@ app.use(e.json());
 app.get("/", rootHandler);
 app.get("/api/health", healthCheck);
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes)
 
 // Error handling (must be last)
 app.use(notFound);
