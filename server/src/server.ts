@@ -24,6 +24,7 @@ app.get("/", rootHandler);
 app.get("/api/health", healthCheck);
 app.use("/api/users", authRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api", authRoutes)
 
 
 // Error handling (must be last)
